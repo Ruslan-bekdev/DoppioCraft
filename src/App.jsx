@@ -20,7 +20,7 @@ const App = () => {
             <Content>
                 <Routes>
                     <Route
-                        path='/'
+                        index
                         element={<Landing/>}
                     />
                     <Route

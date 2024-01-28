@@ -74,6 +74,7 @@ const PriceAndAction = styled.div`
 `;
 
 const Card = ({item,cartList,dispatch,addToCartList}) => {
+    const publicFromGithub = 'https://github.com/Ruslan-bekdev/DoppioCraft/raw/main/public/';
     const addCountKey = () => {
       return {...item,count:1};
     };
@@ -87,7 +88,7 @@ const Card = ({item,cartList,dispatch,addToCartList}) => {
 
     return (
         <CardStyled>
-            <Image src={item.image} alt={'Фото ' + item.title}/>
+            <Image src={publicFromGithub + item.image} alt={'Фото ' + item.title}/>
             <Description>
                 <Title>
                     <h2>{item.title}</h2>

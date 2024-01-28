@@ -1,0 +1,9 @@
+@font-face {
+	font-family: 'La Belle Aurore';
+	src: url('./fonts/la_belle_aurore.eot'); /* IE 9 Compatibility Mode */
+	src: url('./fonts/la_belle_aurore.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+		url('./fonts/la_belle_aurore.woff2') format('woff2'), /* Super Modern Browsers */
+		url('./fonts/la_belle_aurore.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+		url('./fonts/la_belle_aurore.ttf') format('truetype'), /* Safari, Android, iOS */
+		url('./fonts/la_belle_aurore.svg#la_belle_aurore') format('svg'); /* Chrome < 4, Legacy iOS */
+}

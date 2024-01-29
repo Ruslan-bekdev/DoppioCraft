@@ -1,19 +1,35 @@
 import React from 'react';
 import styled from "styled-components";
-import {colors} from "../../../styles/styles";
+import {colors, flexCenter_column, media} from "../../../styles/styles";
 import {container, justifyCenter_between} from "../../../styles/styles";
 import ZoomableImage from "../../../components/zoomableImage/ZoomableImage";
 import hot from "../../../assets/hot.svg";
 import cold from "../../../assets/cold.svg";
+import {publicFromGithub} from "../../../App";
 
 const CardStyled = styled.div`
-  height: 250px;
-  margin-block: 4rem;
   ${container}
   ${justifyCenter_between}
-  &:first-child{
-    margin-top: 8rem;
-  }
+  
+  ${media.mobile`
+    ${flexCenter_column}
+    height: 400px;
+    width: 350px;
+    justify-content: center;
+    margin-block: 4rem;
+  `}
+  ${media.tablet`
+    height: 200px;
+    margin-block: 2rem;
+  `}
+  ${media.laptop`
+    height: 250px;
+    margin-block: 3rem;
+  `}
+  ${media.desktop`
+    height: 350px;
+    margin-block: 4rem;
+  `}
 `;
 const Image = styled(ZoomableImage)`
   position: relative;
@@ -26,6 +42,15 @@ const Image = styled(ZoomableImage)`
     border-top-left-radius: 4rem;
     border-bottom-left-radius: 4rem;
   }
+  
+  ${media.mobile`
+    height: 100px;
+    flex-grow: 1;
+    margin-bottom: 0;
+      &>img{
+       border-radius: 0;
+      }
+  `}
 `;
 const Description = styled.div`
   margin-left: 40px;
@@ -34,6 +59,11 @@ const Description = styled.div`
   >*:not(:first-child){
     margin-top: 1rem;
   }
+
+  ${media.mobile`
+    margin-left: 0;
+    text-align: center;
+  `}
 `;
 const Title = styled.div`
   display: flex;
@@ -51,13 +81,17 @@ const Title = styled.div`
     background-size: cover;
     background-position: center;
   }
+
+  ${media.mobile`
+    justify-content: center;
+  `}
 `;
 const Ingredients = styled.p`
   color: ${colors.main};
 `;
 const PriceAndAction = styled.div`
   ${justifyCenter_between}
-  button{
+  a{
     padding-inline: 2rem;
     padding-block: 0.5rem;
     background-color: #fff;
@@ -71,10 +105,13 @@ const PriceAndAction = styled.div`
       color: #fff;
     }
   }
+
+  ${media.mobile`
+    ${flexCenter_column}
+  `}
 `;
 
 const Card = ({item,cartList,dispatch,addToCartList}) => {
-    const publicFromGithub = 'https://github.com/Ruslan-bekdev/DoppioCraft/raw/main/public/';
     const addCountKey = () => {
       return {...item,count:1};
     };
@@ -107,7 +144,7 @@ const Card = ({item,cartList,dispatch,addToCartList}) => {
                 </Ingredients>
                 <PriceAndAction>
                     <b>{item.price} сом</b>
-                    <button onClick={addCartAction}>В корзину</button>
+                    <a onClick={addCartAction}>В корзину</a>
                 </PriceAndAction>
             </Description>
         </CardStyled>

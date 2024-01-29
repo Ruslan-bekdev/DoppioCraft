@@ -1,5 +1,28 @@
 import {css} from "styled-components";
 
+export const media = {
+    mobile: (...args) => css`
+    @media only screen and (max-width: 767px) {
+      ${css(...args)}
+    }
+  `,
+    tablet: (...args) => css`
+    @media only screen and (min-width: 767px) and (max-width: 991px) {
+      ${css(...args)}
+    }
+  `,
+    laptop: (...args) => css`
+    @media only screen and (min-width: 991px) and (max-width: 1200px) {
+      ${css(...args)}
+    }
+  `,
+    desktop: (...args) => css`
+    @media only screen and (min-width: 1200px) {
+      ${css(...args)}
+    }
+  `,
+};
+
 export const colors = {
     main: '#351C0F',
     mainRGB: '53,28,15',
@@ -7,9 +30,16 @@ export const colors = {
     secondaryRGB: '233,233,233',
 };
 
+export const headerHeight = {
+    mobile: '3rem',
+    tablet: '4rem',
+    laptop: '5rem',
+    desktop: '6rem',
+};
+
 export const container = css`
     width: 100vw;
-    max-width: 840px;
+    max-width: 90vw;
     margin-inline: auto;
     text-align: center;
     box-sizing: border-box;

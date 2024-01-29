@@ -1,55 +1,38 @@
 import React from 'react';
 import styled from "styled-components";
-import {colors, container} from "../../styles/styles";
+import {center_absolute, center_relative, colors, container, flexCenter, media} from "../../styles/styles";
 import {useDispatch,useSelector} from "react-redux";
 import ZoomableImage from "../../components/zoomableImage/ZoomableImage";
 import {countMinus, countPlus} from "../../store/coffeeSlice";
-import {flexCenter} from "../../styles/styles";
+import {flexCenter_column} from "../../styles/styles";
 import {Link as RouterLink} from "react-router-dom";
+import {publicFromGithub} from "../../App";
 
 const CartStyled = styled.div`
   ${container};
   height: 75dvh;
   position: relative;
 `;
-const CartContent = styled.div`
-  position: relative;
-  top: 6rem;
-`;
-const BackLink = styled(RouterLink)`
-  position: fixed;
-  top: 6rem;
-  left: 1rem;
-  padding: 0.5rem 2rem;
-  text-decoration: none;
-  background-color: #fff;
-  color: ${colors.main};
-  border: ${colors.main} 5px solid;
-  border-radius: 72px;
-  cursor: pointer;
-  transition: 0.2s ease-in;
-  &::before{
-    content: '<';
-    margin-right: 0.2rem;
-    font-weight: 700;
-  }
-  &:hover{
-    background-color: ${colors.main};
-    color: #fff;
-  }
-`;
 const EmptyCartContent = styled.div`
-  ${flexCenter};
+  ${flexCenter_column};
   width: 100%;
   height: 100%;
 `;
 const CartTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  text-align: start;
+  text-align: center;
   font-weight: bold;
+  *{
+    font-size: 1.5rem;
+  }
   th{
     text-align: start;
+  }
+  thead{
+    th:not(:first-child){
+      text-align: center;
+    }
   }
   thead, tbody tr{
     border-bottom: 1px solid #000;
@@ -70,7 +53,7 @@ const CartTable = styled.table`
 `;
 const Image = styled(ZoomableImage)`
   position: relative;
-  height: 75px;
+  height: 6rem;
   aspect-ratio: 1;
   &>img{
     width: 100%;
@@ -78,22 +61,35 @@ const Image = styled(ZoomableImage)`
     object-fit: cover;
   }
 `;
-const Action = styled.div`
-  width: fit-content;
-  border: 1px solid #000;
-  border-radius: 103px;
-  button{
-    width: 25px;
-    aspect-ratio: 1;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    font-size: 1rem;
+const ActionTd = styled.td`
+  position: relative;
+  &>div{
+    ${flexCenter};
+    ${center_absolute};
+    width: fit-content;
+    border: 1px solid #000;
+    border-radius: 103px;
+    button{
+      ${flexCenter};
+      width: 2rem;
+      aspect-ratio: 1;
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+    }
+    ${media.mobile`
+      ${flexCenter_column};
+      button, span{
+        font-size: 2rem;
+      }
+    `};
   }
 `;
-const ConfirmButton = styled.button`
+const Actions = styled.div`
+  ${flexCenter_column}
+`;
+const ConfirmButton = styled.a`
   padding: 0.5rem 2rem;
-  margin-bottom: 2rem;
   text-decoration: none;
   background-color: #fff;
   color: ${colors.main};
@@ -101,6 +97,26 @@ const ConfirmButton = styled.button`
   border-radius: 72px;
   cursor: pointer;
   transition: 0.2s ease-in;
+  &:hover{
+    background-color: ${colors.main};
+    color: #fff;
+  }
+`;
+const BackLink = styled(RouterLink)`
+  padding: 0.5rem 2rem;
+  margin-block: 1.5rem;
+  text-decoration: none;
+  background-color: #fff;
+  color: ${colors.main};
+  border: ${colors.main} 5px solid;
+  border-radius: 72px;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+  &::before{
+    content: '<';
+    margin-right: 0.2rem;
+    font-weight: 700;
+  }
   &:hover{
     background-color: ${colors.main};
     color: #fff;
@@ -134,8 +150,7 @@ const Cart = () => {
                 <BackLink to='/catalog'>Назад в каталог</BackLink>
                 <h2>Ваша корзина пуста</h2>
             </EmptyCartContent>
-            :<CartContent>
-                <BackLink to='/catalog'>Назад в каталог</BackLink>
+            :<div>
                 <CartTable>
                     <thead>
                         <tr>
@@ -148,24 +163,24 @@ const Cart = () => {
                         {cartList.map((item,index) =>
                            <tr key={index}>
                                <td className='coffee_title'>
-                                   <Image src={item.image} alt={'Фото' + item.title}/>
+                                   <Image src={publicFromGithub + item.image} alt={'Фото' + item.title}/>
                                    <h3>{item.title}</h3>
                                </td>
-                               <td>
-                                   <Action>
-                                       <button
-                                           onClick={()=>countMinusAction(index)}
-                                       >
-                                           -
-                                       </button>
-                                       <span>{item.count}</span>
+                               <ActionTd>
+                                   <div>
                                        <button
                                            onClick={()=>countPlusAction(index)}
                                        >
                                            +
                                        </button>
-                                   </Action>
-                               </td>
+                                       <span>{item.count}</span>
+                                       <button
+                                           onClick={()=>countMinusAction(index)}
+                                       >
+                                           -
+                                       </button>
+                                   </div>
+                               </ActionTd>
                                <td>{item.price * item.count} сом</td>
                            </tr>
                        )}
@@ -178,12 +193,16 @@ const Cart = () => {
                         </tr>
                     </tfoot>
                 </CartTable>
-                <ConfirmButton
-                    onClick={handleConfirm}
-                >
-                    Заказать
-                </ConfirmButton>
-            </CartContent>
+                <Actions>
+
+                    <ConfirmButton
+                        onClick={handleConfirm}
+                    >
+                        Заказать
+                    </ConfirmButton>
+                    <BackLink to='/catalog'>Назад в каталог</BackLink>
+                </Actions>
+            </div>
             }
         </CartStyled>
     );

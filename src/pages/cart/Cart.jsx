@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import {center_absolute, center_relative, colors, container, flexCenter, media} from "../../styles/styles";
+import {center_absolute, colors, container, flexCenter, media} from "../../styles/styles";
 import {useDispatch,useSelector} from "react-redux";
 import ZoomableImage from "../../components/zoomableImage/ZoomableImage";
 import {countMinus, countPlus} from "../../store/coffeeSlice";
@@ -25,30 +25,52 @@ const CartTable = styled.table`
   font-weight: bold;
   *{
     font-size: 1.5rem;
+    ${media.mobile`
+      font-size: 1.2rem;
+    `};
+  }
+  th,td{
+    padding-block: 1.5rem;
+    ${media.mobile`
+      padding-block: 0.5rem;
+    `};
   }
   th{
     text-align: start;
+    &:not(:first-child){
+      width: 25%;
+    }
+  }
+  thead, tbody tr{
+    border-bottom: 1px solid #000;
   }
   thead{
     th:not(:first-child){
       text-align: center;
     }
   }
-  thead, tbody tr{
-    border-bottom: 1px solid #000;
-  }
-  tbody .coffee_title{
-    display: flex;
-    align-items: center;
-    h3{
-      margin-left: 1rem;
+  tbody {
+    .coffee_title{
+      display: flex;
+      align-items: center;
+      h3{
+        margin-left: 1rem;
+      };
     }
-  }
-  th,td{
-    padding-block: 1.5rem;
-  }
-  th:not(:first-child){
-    width: 25%;
+    ${media.mobile`
+      .coffee_title{
+        ${flexCenter_column};
+        h3{
+          margin-left: 0 !important;
+        };
+      }
+      .totalItemCount{
+        h4{
+          width: min-content;
+          margin-inline: auto;
+        };
+      }
+    `};
   }
 `;
 const Image = styled(ZoomableImage)`
@@ -80,13 +102,16 @@ const ActionTd = styled.td`
     ${media.mobile`
       ${flexCenter_column};
       button, span{
-        font-size: 2rem;
+        font-size: 1.2rem;
       }
     `};
   }
 `;
 const Actions = styled.div`
-  ${flexCenter_column}
+  ${flexCenter_column};
+  ${media.mobile`
+    flex-direction: row-reverse;
+  `};
 `;
 const ConfirmButton = styled.a`
   padding: 0.5rem 2rem;
@@ -121,6 +146,10 @@ const BackLink = styled(RouterLink)`
     background-color: ${colors.main};
     color: #fff;
   }
+  ${media.mobile`
+    margin-block: 1rem;
+    margin-right: 0.2rem;
+  `};
 `;
 
 const Cart = () => {
@@ -181,14 +210,20 @@ const Cart = () => {
                                        </button>
                                    </div>
                                </ActionTd>
-                               <td>{item.price * item.count} сом</td>
+                               <td className='totalItemCount'>
+                                   <h4>
+                                       {
+                                           item.price * item.count
+                                       } сом
+                                   </h4>
+                               </td>
                            </tr>
                        )}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td></td>
                             <td>Итоговая цена:</td>
+                            <td></td>
                             <td>{totalPrice}</td>
                         </tr>
                     </tfoot>

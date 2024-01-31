@@ -9,8 +9,8 @@ import {publicFromGithub} from "../../../App";
 
 const CardStyled = styled.div`
   ${container}
-  ${justifyCenter_between}
-  
+  ${justifyCenter_between};
+  //width: fit-content;
   ${media.mobile`
     ${flexCenter_column}
     height: 400px;
@@ -56,6 +56,7 @@ const Description = styled.div`
   margin-left: 40px;
   color: #000;
   text-align: start;
+  flex-grow: 1;
   >*:not(:first-child){
     margin-top: 1rem;
   }

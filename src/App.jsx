@@ -4,6 +4,7 @@ import Header from "./layout/header/Header";
 import {Route, Routes} from "react-router-dom";
 import Landing from "./pages/landing/Landing";
 import Catalog from "./pages/catalog/Catalog";
+import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
 import Cart from "./pages/cart/Cart";
 import {headerHeight,media} from "./styles/styles";
 
@@ -46,6 +47,10 @@ const App = () => {
                     <Route
                         path='/cart'
                         element={<Cart/>}
+                    />
+                    <Route
+                        path='*'
+                        element={<NotFoundPage/>}
                     />
                 </Routes>
             </Content>

@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/DoppioCraft/static/css/main.8465512a.css",
+    "main.css": "/DoppioCraft/static/css/main.66f05113.css",
     "main.js": "/DoppioCraft/static/js/main.cb291a0c.js",
     "static/media/la_belle_aurore.svg": "/DoppioCraft/static/media/la_belle_aurore.03e76925c7158bf19736.svg",
     "static/media/landing_back.jpg": "/DoppioCraft/static/media/landing_back.96aabc03a0ef9cf27eac.jpg",
@@ -11,11 +11,11 @@
     "index.html": "/DoppioCraft/index.html",
     "static/media/la_belle_aurore.eot": "/DoppioCraft/static/media/la_belle_aurore.31d6cfe0d16ae931b73c.eot",
     "static/media/la_belle_aurore.woff": "/DoppioCraft/static/media/la_belle_aurore.31d6cfe0d16ae931b73c.woff",
-    "main.8465512a.css.map": "/DoppioCraft/static/css/main.8465512a.css.map",
+    "main.66f05113.css.map": "/DoppioCraft/static/css/main.66f05113.css.map",
     "main.cb291a0c.js.map": "/DoppioCraft/static/js/main.cb291a0c.js.map"
   },
   "entrypoints": [
-    "static/css/main.8465512a.css",
+    "static/css/main.66f05113.css",
     "static/js/main.cb291a0c.js"
   ]
 }

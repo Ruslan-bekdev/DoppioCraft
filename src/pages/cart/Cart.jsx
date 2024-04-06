@@ -13,7 +13,7 @@ const CartStyled = styled.div`
   height: 75dvh;
   position: relative;
 `;
-const EmptyCartContent = styled.div`
+const EmptyCartContent = styled.section`
   ${flexCenter_column};
   width: 100%;
   height: 100%;
@@ -76,7 +76,7 @@ const CartTable = styled.table`
 const Image = styled(ZoomableImage)`
   position: relative;
   height: 6rem;
-  aspect-ratio: 1;
+  aspect-ratio: 1/1;
   &>img{
     width: 100%;
     height: 100%;
@@ -94,7 +94,7 @@ const ActionTd = styled.td`
     button{
       ${flexCenter};
       width: 2rem;
-      aspect-ratio: 1;
+      aspect-ratio: 1/1;
       cursor: pointer;
       background-color: transparent;
       border: none;
@@ -113,7 +113,7 @@ const Actions = styled.div`
     flex-direction: row-reverse;
   `};
 `;
-const ConfirmButton = styled.a`
+const ConfirmButton = styled.button`
   padding: 0.5rem 2rem;
   text-decoration: none;
   background-color: #fff;
@@ -176,10 +176,10 @@ const Cart = () => {
         <CartStyled>
             {cartList.length === 0
             ?<EmptyCartContent>
-                <BackLink to='/catalog'>Назад в каталог</BackLink>
                 <h2>Ваша корзина пуста</h2>
+                <BackLink to='/catalog'>Назад в каталог</BackLink>
             </EmptyCartContent>
-            :<div>
+            :<>
                 <CartTable>
                     <thead>
                         <tr>
@@ -198,15 +198,17 @@ const Cart = () => {
                                <ActionTd>
                                    <div>
                                        <button
-                                           onClick={()=>countPlusAction(index)}
+                                           type="button"
+                                           onClick={()=>countMinusAction(index)}
                                        >
-                                           +
+                                           {item.count === 1 ?'x' :'-'}
                                        </button>
                                        <span>{item.count}</span>
                                        <button
-                                           onClick={()=>countMinusAction(index)}
+                                           type="button"
+                                           onClick={()=>countPlusAction(index)}
                                        >
-                                           -
+                                           +
                                        </button>
                                    </div>
                                </ActionTd>
@@ -224,20 +226,20 @@ const Cart = () => {
                         <tr>
                             <td>Итоговая цена:</td>
                             <td></td>
-                            <td>{totalPrice}</td>
+                            <td>{totalPrice} сом</td>
                         </tr>
                     </tfoot>
                 </CartTable>
                 <Actions>
-
                     <ConfirmButton
+                        type="submit"
                         onClick={handleConfirm}
                     >
                         Заказать
                     </ConfirmButton>
                     <BackLink to='/catalog'>Назад в каталог</BackLink>
                 </Actions>
-            </div>
+            </>
             }
         </CartStyled>
     );

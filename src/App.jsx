@@ -8,10 +8,7 @@ import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
 import Cart from "./pages/cart/Cart";
 import {headerHeight,media} from "./styles/styles";
 
-const AppStyled = styled.div`
-  color: #000;
-`;
-const Content = styled.div`
+const Content = styled.main`
   margin-top: ${headerHeight.laptop};
   
   ${media.mobile`
@@ -32,7 +29,7 @@ export const publicFromGithub = 'https://github.com/Ruslan-bekdev/DoppioCraft/ra
 
 const App = () => {
     return (
-        <AppStyled>
+        <>
             <Header/>
             <Content>
                 <Routes>
@@ -54,7 +51,7 @@ const App = () => {
                     />
                 </Routes>
             </Content>
-        </AppStyled>
+        </>
     );
 }
 

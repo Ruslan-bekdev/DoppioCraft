@@ -12,7 +12,7 @@ const CatalogStyled = styled.div`
   ${container};
   padding-block: 1.5rem;
 `;
-const Search = styled.div`
+const Search = styled.section`
   ${flexCenter_column};
   h3{
     ${media.mobile`
@@ -28,6 +28,7 @@ const Search = styled.div`
       font-size: 3rem;
     `}
   }
+  
   input{
     margin: 0.5rem;
     padding: 0.5rem 1rem;
@@ -54,9 +55,11 @@ const Search = styled.div`
       padding: 0.75rem 1.75rem;
     `}
   }
+  
   .tempSearch{
+    position: relative;
     ${flexCenter_column};
-    aspect-ratio: 1;
+    aspect-ratio: 1/1;
 
     ${media.mobile`
       height: 75px;
@@ -92,7 +95,7 @@ const Search = styled.div`
       }
       .hot, .cold{
         width: 100%;
-        aspect-ratio: 1;
+        aspect-ratio: 1/1;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -118,6 +121,26 @@ const Search = styled.div`
       }
     }
     
+    &::after{
+      content: '?';
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateX(100%) rotate(10deg);
+      
+      ${media.mobile`
+        font-size: 3.2rem;
+      `}
+      ${media.tablet`
+        font-size: 4rem;
+      `}
+      ${media.laptop`
+        font-size: 5rem;
+      `}
+      ${media.desktop`
+        font-size: 7rem;
+      `}
+    }
   }
 `;
 
@@ -131,6 +154,7 @@ const Catalog = () => {
     const dispatch = useDispatch();
     const {filteredCoffees,temp,cartList} = useSelector(state => state.coffeeReducer);
     const [searchValue,setSearchValue] = useState('');
+    const randomizedCoffee = coffees.sort(() => Math.random() - 0.5);
 
     const handleSetSearch = (e) => {
         setSearchValue(e.target.value);
@@ -146,7 +170,7 @@ const Catalog = () => {
     };
     const handleFilterItems = () => {
         const filtered =
-            coffees.filter(item => {
+            randomizedCoffee.filter(item => {
                 switch (temp) {
                     case tempConfig.hot:
                         return item.title.toLowerCase()
@@ -177,11 +201,11 @@ const Catalog = () => {
     return (
         <CatalogStyled>
             <Search>
-                <label htmlFor='search'>
-                    <h3>
+                <h3>
+                    <label htmlFor='search'>
                         Поиск по названию и ингридиентам
-                    </h3>
-                </label>
+                    </label>
+                </h3>
                 <input
                     id='search'
                     value={searchValue}
@@ -207,17 +231,19 @@ const Catalog = () => {
                     </a>
                 </div>
             </Search>
-            {
-                filteredCoffees.map((coffee,index) =>
-                    <Card
-                        item={coffee}
-                        cartList={cartList}
-                        dispatch={dispatch}
-                        addToCartList={addToCartList}
-                        key={index}
-                    />
-                )
-            }
+            <section>
+                {
+                    filteredCoffees.map((coffee,index) =>
+                        <Card
+                            item={coffee}
+                            cartList={cartList}
+                            dispatch={dispatch}
+                            addToCartList={addToCartList}
+                            key={index}
+                        />
+                    )
+                }
+            </section>
         </CatalogStyled>
     );
 };

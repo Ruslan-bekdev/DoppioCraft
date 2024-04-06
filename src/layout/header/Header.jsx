@@ -4,15 +4,20 @@ import {Link as RouterLink} from "react-router-dom";
 import {colors, headerHeight, justifyCenter_between, start_fixed,media} from "../../styles/styles";
 import {useSelector} from "react-redux";
 
-const HeaderStyled = styled.div`
+const HeaderStyled = styled.header`
   width: 100vw;
   height: ${headerHeight.laptop};
   padding-inline: 2rem;
   background-color: ${colors.main};
   box-sizing: border-box;
-  ${justifyCenter_between}
   ${start_fixed};
   z-index: 10;
+  
+  nav{
+    width: 100%;
+    height: 100%;
+    ${justifyCenter_between}
+  }
 
   ${media.mobile`
     height: ${headerHeight.mobile};
@@ -27,22 +32,17 @@ const HeaderStyled = styled.div`
     height: ${headerHeight.desktop};
   `}
 `;
-const Actions = styled.div`
-    
-`;
 const Link = styled(RouterLink)`
   color: ${colors.secondary};
   text-decoration: none;
   transition: color 0.2s ease-in-out;
-  h1{
+  h2{
     font-family: 'La Belle Aurore', sans-serif;
   }
-  &+&{
-    margin-left: 0.5rem;
-  }
-  &:hover{
-    color: #fff;
-    text-decoration: underline #fff;
+  @media (hover: hover){
+      &:hover{
+        text-decoration: underline #fff;
+      }
   }
 `;
 
@@ -51,18 +51,18 @@ const Header = () => {
 
     return (
         <HeaderStyled>
-            <Link to='/'>
-                <h1>
-                    Doppio Craft
-                </h1>
-            </Link>
-            <Actions>
+            <nav>
+                <Link to='/'>
+                    <h2>
+                        Doppio Craft
+                    </h2>
+                </Link>
                 <Link to='/cart'>
                     <b>
                         Корзина ({cartList.length})
                     </b>
                 </Link>
-            </Actions>
+            </nav>
         </HeaderStyled>
     );
 };

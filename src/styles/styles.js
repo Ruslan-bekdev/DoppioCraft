@@ -62,6 +62,11 @@ export const justifyCenter_between = css`
     align-items: center;
     justify-content: space-between;
 `;
+export const justifyEnd_between = css`
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+`;
 export const flexCenter = css`
     display: flex;
     align-items: center;

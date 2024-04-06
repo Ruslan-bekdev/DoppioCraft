@@ -11,6 +11,7 @@ const LandingStyled = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  position: relative;
   
   ${media.mobile`
     height: calc(100dvh - ${headerHeight.mobile});
@@ -25,11 +26,7 @@ const LandingStyled = styled.div`
     height: calc(100dvh - ${headerHeight.desktop});
   `}
 `;
-const Content = styled.div`
-  height: 100%;
-  position: relative;
-`;
-const Description = styled.div`
+const Description = styled.section`
   color: #fff;
   width: fit-content;
   text-align: start;
@@ -40,10 +37,10 @@ const Description = styled.div`
   background-color: rgb(${colors.mainRGB},0.75);
   ${centerY_relative};
   transform: translateY(-10rem);
-  h2, p{
+  h1, p{
     max-width: 90%;
   }
-  h2{
+  h1{
     font-size: 3rem;
   }
   p{
@@ -66,13 +63,11 @@ const Description = styled.div`
     }
   `}
 `;
-const Actions = styled.div`
+const Link = styled(RouterLink)`
   display: inline-block;
   position: fixed;
   bottom: 3rem;
   right: 3rem;
-`;
-const Link = styled(RouterLink)`
   padding: 0.5rem 2rem;
   text-decoration: none;
   background-color: #fff;
@@ -95,19 +90,15 @@ const Link = styled(RouterLink)`
 const Landing = () => {
     return (
         <LandingStyled>
-            <Content>
-                <Description>
-                    <h2>ИССЛЕДУЙ МИР КОФЕ</h2>
-                    <p>
-                        Открой для себя разнообразие кофейных вкусов
-                    </p>
-                </Description>
-                <Actions>
-                    <Link to='/catalog'>
-                        Перейти к каталогу
-                    </Link>
-                </Actions>
-            </Content>
+            <Description>
+                <h1>ИССЛЕДУЙ МИР КОФЕ</h1>
+                <p>
+                    Открой для себя разнообразие кофейных вкусов
+                </p>
+            </Description>
+            <Link to='/catalog'>
+                Перейти к каталогу
+            </Link>
         </LandingStyled>
     );
 };

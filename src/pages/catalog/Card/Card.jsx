@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import {colors, flexCenter_column, media} from "../../../styles/styles";
+import {colors, flexCenter_column, justifyEnd_between, media} from "../../../styles/styles";
 import {container, justifyCenter_between} from "../../../styles/styles";
 import ZoomableImage from "../../../components/zoomableImage/ZoomableImage";
 import hot from "../../../assets/hot.svg";
@@ -10,10 +10,10 @@ import {publicFromGithub} from "../../../App";
 const CardStyled = styled.div`
   ${container}
   ${justifyCenter_between};
-  //width: fit-content;
+  
   ${media.mobile`
     ${flexCenter_column}
-    height: 400px;
+    height: 300px;
     width: 350px;
     justify-content: center;
     margin-block: 4rem;
@@ -34,7 +34,7 @@ const CardStyled = styled.div`
 const Image = styled(ZoomableImage)`
   position: relative;
   height: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 1/1;
   &>img{
     width: 100%;
     height: 100%;
@@ -53,48 +53,73 @@ const Image = styled(ZoomableImage)`
   `}
 `;
 const Description = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
   margin-left: 40px;
   color: #000;
   text-align: start;
-  flex-grow: 1;
-  >*:not(:first-child){
-    margin-top: 1rem;
+  
+  dl{
+    font-weight: bold;
+    dt,dd{
+      display: inline-block;
+    }
+    dd{
+      margin-left: .5rem;
+    }
   }
 
   ${media.mobile`
     margin-left: 0;
     text-align: center;
+    dl{
+      dt,dd{
+        display: block;
+      }
+      dd{
+        margin-left: auto;
+      }
+    }
   `}
 `;
-const Title = styled.div`
-  display: flex;
-  align-items: center;
-  .hot{
-    background-image: url(${hot});
-  }
-  .cold{
-    background-image: url(${cold});
-  }
-  .hot, .cold{
-    width: 40px;
-    height: 40px;
+const Title = styled.h2`
+  width: fit-content;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    aspect-ratio: 1/1;
+    bottom: 0;
+    right: 0;
+    transform: translateX(100%);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
   }
 
+  &.hot::after {
+    background-image: url(${hot});
+  }
+
+  &.cold::after {
+    background-image: url(${cold});
+  }
+  
   ${media.mobile`
-    justify-content: center;
+    transform: translateX(-15px);
+    margin-inline: auto;
   `}
 `;
-const Ingredients = styled.p`
-  color: ${colors.main};
-`;
 const PriceAndAction = styled.div`
-  ${justifyCenter_between}
+  ${justifyEnd_between}
   a{
-    padding-inline: 2rem;
-    padding-block: 0.5rem;
+    padding: 0.2rem 1.2rem;
     background-color: #fff;
     color: ${colors.main};
     border: ${colors.main} 5px solid;
@@ -128,21 +153,22 @@ const Card = ({item,cartList,dispatch,addToCartList}) => {
         <CardStyled>
             <Image src={publicFromGithub + item.image} alt={'Фото ' + item.title}/>
             <Description>
-                <Title>
-                    <h2>{item.title}</h2>
-                    <div className={item.hot ?'hot' :'cold'}/>
+                <Title className={item.hot ? 'hot' : 'cold'}>
+                    {item.title}
                 </Title>
                 <p>{item.description}</p>
-                <Ingredients>
-                    Ингридиенты:
-                    {
-                        item.ingredients.map((item,index)=>{
-                            return index === 0
-                                ?` ${item}`
-                                :`, ${item}`;
-                        })
-                    }
-                </Ingredients>
+                <dl>
+                    <dt>Ингридиенты:</dt>
+                    <dd>
+                        {
+                            item.ingredients.map((item,index)=>{
+                                return index === 0
+                                    ?` ${item}`
+                                    :`, ${item}`;
+                            })
+                        }
+                    </dd>
+                </dl>
                 <PriceAndAction>
                     <b>{item.price} сом</b>
                     <a onClick={addCartAction}>В корзину</a>
